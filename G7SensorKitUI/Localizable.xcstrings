@@ -3748,6 +3748,9 @@
         }
       }
     },
+    "Sensor\n%1$@" : {
+      "comment" : "G7 Status highlight text for sensor time remaining (1: localized duration)"
+    },
     "Sensor\nExpired" : {
       "comment" : "G7 Status highlight text for sensor expired",
       "localizations" : {
