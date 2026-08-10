@@ -96,7 +96,7 @@ extension G7CGMManager: CGMManagerUI {
             formatter.unitsStyle = .abbreviated
             if let remainingString = formatter.string(from: expiration.timeIntervalSinceNow) {
                 return G7DeviceStatusHighlight(
-                    localizedMessage: String(format: LocalizedString("Sensor\n%1$@", comment: "G7 Status highlight text for sensor time remaining (1: localized duration)"), remainingString),
+                    localizedMessage: remainingString,
                     imageName: "sensor.tag.radiowaves.forward",
                     state: .normalCGM)
             }
