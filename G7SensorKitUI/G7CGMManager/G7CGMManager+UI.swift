@@ -121,11 +121,11 @@ extension G7CGMManager: CGMManagerUI {
             }
             let remaining = max(0, expiration.timeIntervalSinceNow)
 
+            // The bar length represents time remaining: long when fresh, a sliver near expiry
             if remaining < .hours(24) {
-                return G7LifecycleProgress(percentComplete: 1-(remaining/lifetime), progressState: .warning)
+                return G7LifecycleProgress(percentComplete: remaining/lifetime, progressState: .warning)
             }
-            // Show lifecycle progress throughout normal sensor life
-            return G7LifecycleProgress(percentComplete: 1-(remaining/lifetime), progressState: .normalCGM)
+            return G7LifecycleProgress(percentComplete: remaining/lifetime, progressState: .normalCGM)
         case .gracePeriod:
             guard let endTime = sensorEndsAt else {
                 return nil
