@@ -78,7 +78,7 @@ extension G7CGMManager: CGMManagerUI {
             return G7DeviceStatusHighlight(
                 localizedMessage: LocalizedString("Sensor\nIssue", comment: "G7 Status highlight text for sensor error"),
                 imageName: "exclamationmark.circle.fill",
-                state: .warning)
+                state: .critical)
         }
 
         if lifecycleState == .warmup {
