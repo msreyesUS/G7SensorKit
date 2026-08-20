@@ -91,7 +91,7 @@ extension G7CGMManager: CGMManagerUI {
         // When everything is normal, show the sensor's expiration as date over time
         if lifecycleState == .ok, let expiration = sensorExpiresAt, expiration.timeIntervalSinceNow > 0 {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MMM-dd"
+            dateFormatter.dateFormat = "MMM d, yyyy"
             let timeFormatter = DateFormatter()
             timeFormatter.dateStyle = .none
             timeFormatter.timeStyle = .short
