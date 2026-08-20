@@ -88,15 +88,16 @@ extension G7CGMManager: CGMManagerUI {
                 state: .normalCGM)
         }
 
-        // When everything is normal, show the sensor's expiration as date over time
+        // When everything is normal, show the time remaining until sensor expiration.
+        // Units zero out rather than drop as time drains, e.g. "0 days\n0 hrs 52 min",
+        // matching the pump pill.
         if lifecycleState == .ok, let expiration = sensorExpiresAt, expiration.timeIntervalSinceNow > 0 {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, yyyy"
-            let timeFormatter = DateFormatter()
-            timeFormatter.dateStyle = .none
-            timeFormatter.timeStyle = .short
+            let totalMinutes = Int(expiration.timeIntervalSinceNow / 60)
+            let days = totalMinutes / (24 * 60)
+            let hours = (totalMinutes % (24 * 60)) / 60
+            let minutes = totalMinutes % 60
             return G7DeviceStatusHighlight(
-                localizedMessage: dateFormatter.string(from: expiration) + "\n" + timeFormatter.string(from: expiration),
+                localizedMessage: "\(days) days\n\(hours) hrs \(minutes) min",
                 imageName: "sensor.tag.radiowaves.forward",
                 state: .normalCGM)
         }
