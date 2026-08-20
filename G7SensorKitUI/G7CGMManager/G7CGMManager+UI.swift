@@ -88,18 +88,17 @@ extension G7CGMManager: CGMManagerUI {
                 state: .normalCGM)
         }
 
-        // When everything is normal, show the sensor's remaining lifetime
+        // When everything is normal, show the sensor's expiration as date over time
         if lifecycleState == .ok, let expiration = sensorExpiresAt, expiration.timeIntervalSinceNow > 0 {
-            let formatter = DateComponentsFormatter()
-            formatter.allowedUnits = [.day, .hour]
-            formatter.maximumUnitCount = 2
-            formatter.unitsStyle = .abbreviated
-            if let remainingString = formatter.string(from: expiration.timeIntervalSinceNow) {
-                return G7DeviceStatusHighlight(
-                    localizedMessage: remainingString,
-                    imageName: "sensor.tag.radiowaves.forward",
-                    state: .normalCGM)
-            }
+            let dateFormatter = DateFormatter()
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd")
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateStyle = .none
+            timeFormatter.timeStyle = .short
+            return G7DeviceStatusHighlight(
+                localizedMessage: dateFormatter.string(from: expiration) + "\n" + timeFormatter.string(from: expiration),
+                imageName: "sensor.tag.radiowaves.forward",
+                state: .normalCGM)
         }
         return nil
     }
